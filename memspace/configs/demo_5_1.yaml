@@ -3,8 +3,16 @@
 # Input: Semantic objects from Phase 4.2
 semantic_objects_json: outputs/semantic_objects.json
 
+# Spatial reasoning method: "geometric" or "llava"
+# - geometric: Use geometric-based spatial relationship detection (default)
+# - llava: Use LLaVA-based text reasoning with semantic understanding
+spatial_reasoning_method: geometric
+
 # Spatial relationship detection parameters
 relationships:
+  # Minimum confidence threshold for relationships (0.0-1.0)
+  min_confidence: 0.5
+
   # Only compute relationships for objects with bbox overlap > threshold
   overlap_threshold: 0.01
 

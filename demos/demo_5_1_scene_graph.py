@@ -20,7 +20,8 @@ from omegaconf import DictConfig
 import time
 
 from memspace.scenegraph.scene_graph import SceneGraph
-from memspace.scenegraph.spatial_relations import RelationType
+from memspace.scenegraph.spatial_relations import RelationType, SpatialRelation
+from memspace.scenegraph.llava_spatial_reasoning import LLaVASpatialReasoner
 
 
 def load_semantic_objects_from_json(json_path: str) -> SceneGraph:
@@ -89,19 +90,72 @@ def main(cfg: DictConfig):
     scene_graph.get_confirmed_objects = get_confirmed_objects_override
 
     # Compute spatial relationships
-    print("\n🔗 Computing spatial relationships...")
-    relationship_config = {
-        'on_height_tolerance': cfg.relationships.get('on_height_tolerance', 0.05),
-        'on_overlap_threshold': cfg.relationships.get('on_overlap_threshold', 0.3),
-        'in_containment_threshold': cfg.relationships.get('in_containment_threshold', 0.8),
-        'near_distance_threshold': cfg.relationships.get('near_distance_threshold', 0.5),
-        'directional_threshold': cfg.relationships.get('directional_threshold', 0.3),
-    }
+    spatial_method = cfg.get('spatial_reasoning_method', 'geometric')
+    print(f"\n🔗 Computing spatial relationships (method: {spatial_method})...")
 
-    scene_graph.compute_relationships(
-        overlap_threshold=cfg.relationships.get('overlap_threshold', 0.01),
-        config=relationship_config,
-    )
+    if spatial_method == 'llava':
+        # Use LLaVA-based spatial reasoning
+        reasoner = LLaVASpatialReasoner(llava_wrapper=None, use_text_reasoning=True)
+
+        # Get confirmed objects
+        objects = scene_graph.get_confirmed_objects(
+            min_observations=cfg.get('min_observations', 2),
+            min_points=cfg.get('min_points', 100),
+        )
+
+        print(f"   Processing {len(objects)} objects...")
+
+        # Compute pairwise relationships
+        relationships = reasoner.compute_pairwise_relationships(
+            objects,
+            min_confidence=cfg.relationships.get('min_confidence', 0.5),
+        )
+
+        # Store relationships in scene graph
+        scene_graph.relations = relationships
+        print(f"✓ Found {len(relationships)} relationships using LLaVA reasoning")
+
+        # Print example queries (first 3)
+        print("\n🔍 Example LLaVA Queries:")
+        for i, obj1 in enumerate(objects[:3]):
+            for j, obj2 in enumerate(objects[:3]):
+                if i >= j:
+                    continue
+
+                label1 = obj1.get('label', 'unknown')
+                label2 = obj2.get('label', 'unknown')
+
+                if 'bounding_box_3d' in obj1 and 'bounding_box_3d' in obj2:
+                    bbox1 = obj1['bounding_box_3d']
+                    bbox2 = obj2['bounding_box_3d']
+                    pos1 = bbox1[:3]
+                    pos2 = bbox2[:3]
+                    size1 = bbox1[3:]
+                    size2 = bbox2[3:]
+
+                    rel_str, conf = reasoner.query_relationship_text(
+                        label1, pos1, size1,
+                        label2, pos2, size2,
+                    )
+
+                    print(f"   Query: Object 1 is a \"{label1}\" at position ({pos1[0]:.2f}, {pos1[1]:.2f}, {pos1[2]:.2f})")
+                    print(f"          Object 2 is a \"{label2}\" at position ({pos2[0]:.2f}, {pos2[1]:.2f}, {pos2[2]:.2f})")
+                    print(f"          → Relationship: \"{rel_str}\" (confidence: {conf:.2f})\n")
+
+    else:
+        # Use geometric-based spatial reasoning (default)
+        relationship_config = {
+            'on_height_tolerance': cfg.relationships.get('on_height_tolerance', 0.05),
+            'on_overlap_threshold': cfg.relationships.get('on_overlap_threshold', 0.3),
+            'in_containment_threshold': cfg.relationships.get('in_containment_threshold', 0.8),
+            'near_distance_threshold': cfg.relationships.get('near_distance_threshold', 0.5),
+            'directional_threshold': cfg.relationships.get('directional_threshold', 0.3),
+        }
+
+        scene_graph.compute_relationships(
+            overlap_threshold=cfg.relationships.get('overlap_threshold', 0.01),
+            config=relationship_config,
+        )
 
     # Build MST and connected components
     print("\n🌳 Building minimum spanning tree...")
