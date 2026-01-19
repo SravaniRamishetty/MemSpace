@@ -22,6 +22,7 @@ import time
 from memspace.scenegraph.scene_graph import SceneGraph
 from memspace.scenegraph.spatial_relations import RelationType, SpatialRelation
 from memspace.scenegraph.llava_spatial_reasoning import LLaVASpatialReasoner
+from memspace.scenegraph.llava_visual_reasoning import LLaVAVisualReasoner
 
 
 def load_semantic_objects_from_json(json_path: str) -> SceneGraph:
@@ -93,8 +94,71 @@ def main(cfg: DictConfig):
     spatial_method = cfg.get('spatial_reasoning_method', 'geometric')
     print(f"\n🔗 Computing spatial relationships (method: {spatial_method})...")
 
+    if spatial_method == 'llava_visual':
+        # Use vision-based LLaVA spatial reasoning with annotated images
+        from memspace.dataset.replica_dataset import ReplicaDataset
+        from memspace.models.llava_wrapper import LLaVAWrapper
+        import os
+
+        # Initialize dataset
+        dataset_cfg = cfg.dataset
+        dataset = ReplicaDataset(
+            dataset_path=dataset_cfg.dataset_path,
+            stride=dataset_cfg.stride,
+            start=dataset_cfg.get('start_frame', 0),
+            end=dataset_cfg.max_frames * dataset_cfg.stride if dataset_cfg.max_frames else -1,
+            height=480,
+            width=640,
+            device=cfg.get('device', 'cuda'),
+        )
+
+        # Initialize LLaVA wrapper
+        llava_path = os.getenv('LLAVA_PYTHON_PATH')
+        llava_ckpt = os.getenv('LLAVA_CKPT_PATH')
+
+        if llava_path is None or llava_ckpt is None:
+            print("❌ LLAVA_PYTHON_PATH or LLAVA_CKPT_PATH not set. Falling back to geometric reasoning.")
+            spatial_method = 'geometric'
+        else:
+            # Get LLaVA config with safe defaults
+            load_8bit = True
+            load_4bit = False
+            if 'model' in cfg and hasattr(cfg.model, 'load_8bit'):
+                load_8bit = cfg.model.get('load_8bit', True)
+                load_4bit = cfg.model.get('load_4bit', False)
+
+            llava_wrapper = LLaVAWrapper(
+                model_path=llava_ckpt,
+                load_8bit=load_8bit,
+                load_4bit=load_4bit,
+            )
+
+            reasoner = LLaVAVisualReasoner(
+                llava_wrapper=llava_wrapper,
+                dataset=dataset,
+                use_visual_reasoning=True
+            )
+
+            # Get confirmed objects
+            objects = scene_graph.get_confirmed_objects(
+                min_observations=cfg.get('min_observations', 2),
+                min_points=cfg.get('min_points', 100),
+            )
+
+            print(f"   Processing {len(objects)} objects with vision-based reasoning...")
+
+            # Compute pairwise relationships
+            relationships = reasoner.compute_pairwise_relationships(
+                objects,
+                min_confidence=cfg.relationships.get('min_confidence', 0.5),
+            )
+
+            # Store relationships in scene graph
+            scene_graph.relations = relationships
+            print(f"✓ Found {len(relationships)} relationships using vision-based LLaVA reasoning")
+
     if spatial_method == 'llava':
-        # Use LLaVA-based spatial reasoning
+        # Use text-based LLaVA spatial reasoning
         reasoner = LLaVASpatialReasoner(llava_wrapper=None, use_text_reasoning=True)
 
         # Get confirmed objects
