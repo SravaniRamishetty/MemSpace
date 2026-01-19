@@ -1,0 +1,1 @@
+transformers==4.49.0  # Required for Florence-2 compatibility

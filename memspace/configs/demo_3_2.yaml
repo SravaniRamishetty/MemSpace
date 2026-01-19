@@ -1,0 +1,33 @@
+defaults:
+  - base
+  - dataset: replica
+  - _self_
+
+# Demo 3.2: Point Cloud Accumulation (ConceptGraphs-style)
+
+# Point cloud accumulation settings
+pointcloud:
+  voxel_size: 0.02  # 2cm downsampling (faster than TSDF)
+  max_depth: 10.0   # Ignore depth > 10m
+  outlier_removal: true
+  outlier_nb_neighbors: 20
+  outlier_std_ratio: 2.0
+
+# Mesh extraction (optional)
+mesh:
+  enable: true
+  method: poisson  # 'poisson' or 'ball_pivoting'
+  poisson_depth: 9  # Octree depth (9 = good quality)
+  simplify: true
+  target_triangles: 100000  # Simplify to ~100k triangles
+
+# Dataset settings (override from base)
+dataset:
+  stride: 10  # Process every 10th frame
+  max_frames: 50  # Process 50 frames for demo
+  start_frame: 0
+
+# Rerun visualization
+use_rerun: true
+rerun_save_path: null
+rerun_spawn: true

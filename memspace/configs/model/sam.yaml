@@ -1,0 +1,14 @@
+# SAM model configuration
+model_type: mobile_sam  # mobile_sam, sam_l, sam_b
+device: ${device}
+
+# Automatic mask generation parameters
+# Reduce points_per_side to generate fewer candidate masks (32 -> 16)
+points_per_side: 16
+
+# Increase thresholds to be more selective about keeping masks
+pred_iou_thresh: 0.92  # Higher = stricter quality (was 0.88)
+stability_score_thresh: 0.97  # Higher = more stable masks (was 0.95)
+
+# Increase minimum area to filter small fragments
+min_mask_region_area: 500  # Larger = fewer small masks (was 100)

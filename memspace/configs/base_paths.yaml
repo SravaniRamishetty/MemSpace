@@ -1,0 +1,6 @@
+# Main paths
+repo_root: /home/sravani/E-Lab/Spring2026/repos/MemSpace
+data_root: /home/sravani/E-Lab/Spring2026/my_local_data
+
+# Output paths
+output_dir: ${repo_root}/outputs

@@ -1,0 +1,33 @@
+# Configuration for Demo 5.1: Scene Graph Construction
+
+# Input: Semantic objects from Phase 4.2
+semantic_objects_json: outputs/semantic_objects.json
+
+# Spatial relationship detection parameters
+relationships:
+  # Only compute relationships for objects with bbox overlap > threshold
+  overlap_threshold: 0.01
+
+  # "On" relationship parameters
+  on_height_tolerance: 0.05      # Max gap between A's bottom and B's top (meters)
+  on_overlap_threshold: 0.3      # Min XY footprint overlap ratio
+
+  # "In" relationship parameters
+  in_containment_threshold: 0.8  # Min volume overlap ratio (A inside B)
+
+  # "Near" relationship parameters
+  near_distance_threshold: 0.5   # Max center-to-center distance (meters)
+
+  # Directional relationship parameters
+  directional_threshold: 0.3     # Min offset to consider directional
+
+# Scene graph output
+output_json: outputs/scene_graph.json
+include_objects_in_export: true  # Include full object data in graph JSON
+
+# Visualization
+use_rerun: false
+
+# Filtering for objects to include in graph
+min_observations: 2
+min_points: 100

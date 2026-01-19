@@ -1,0 +1,28 @@
+defaults:
+  - base
+  - dataset: replica
+  - _self_
+
+# Demo 3.1: TSDF Fusion and 3D Reconstruction
+
+# TSDF Fusion settings
+tsdf:
+  voxel_size: 0.01  # 1cm voxels (good balance of quality/memory)
+  sdf_trunc: 0.04   # 4cm truncation (4x voxel_size recommended)
+  color_type: RGB8  # RGB8 or Gray32
+
+# Mesh extraction and processing
+mesh:
+  simplify: true
+  target_triangles: 100000  # Simplify to ~100k triangles for visualization
+
+# Dataset settings (override from base)
+dataset:
+  stride: 10  # Process every 10th frame (200 frames total from 2000)
+  max_frames: 50  # Process 50 frames for demo (covers 500 frame span)
+  start_frame: 0
+
+# Rerun visualization
+use_rerun: true
+rerun_save_path: null
+rerun_spawn: true

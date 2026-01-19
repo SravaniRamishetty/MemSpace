@@ -1,0 +1,16 @@
+defaults:
+  - base_paths
+  - _self_
+
+# Logging
+use_rerun: true
+rerun_save_path: null  # null means don't save, or specify path to save .rrd file
+rerun_spawn: true  # Set to false when saving recordings only
+
+# General settings
+device: cuda  # cuda or cpu
+seed: 42
+debug: false
+
+# Experiment naming
+exp_name: memspace_demo

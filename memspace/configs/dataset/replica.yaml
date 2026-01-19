@@ -1,0 +1,17 @@
+# Dataset configuration for Replica
+dataset_type: replica
+scene_id: room0
+dataset_path: /home/sravani/E-Lab/Spring2026/my_local_data/Replica/room0
+
+# Camera intrinsics (Replica default)
+width: 1200
+height: 680
+fx: 600.0
+fy: 600.0
+cx: 599.5
+cy: 339.5
+
+# Frame settings
+stride: 10  # Process every Nth frame
+max_frames: 100  # null for all frames
+start_frame: 0

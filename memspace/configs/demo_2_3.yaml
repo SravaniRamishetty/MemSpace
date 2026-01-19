@@ -1,0 +1,64 @@
+defaults:
+  - base
+  - dataset: replica
+  - _self_
+
+# Demo 2.3 specific settings
+exp_name: demo_2_3_object_tracking
+use_rerun: true
+
+# Model settings
+model:
+  sam:
+    model_type: mobile_sam
+    device: ${device}
+  clip:
+    model_name: ViT-H-14
+    pretrained: laion2b_s32b_b79k
+    device: ${device}
+
+# Dataset settings - use more frames to show tracking
+dataset:
+  stride: 10  # Smaller stride for better tracking
+  max_frames: 10  # More frames to track objects
+  start_frame: 0
+
+# Segmentation settings
+segmentation:
+  min_mask_area: 100
+  max_masks_per_frame: 50
+  visualize_masks: true
+  save_masks: false
+
+  # Mask merging to reduce over-segmentation
+  merge_masks: true
+  merge_iou_threshold: 0.5
+  merge_containment_threshold: 0.85
+
+  # Optional: depth-based filtering
+  filter_by_depth: false
+  max_depth_variance: 0.5
+
+# CLIP feature extraction settings
+clip_features:
+  padding: 20
+  batch_size: 32
+  save_crops: false
+  visualize_embeddings: false
+
+# Object tracking settings
+tracking:
+  # Similarity thresholds
+  sim_threshold: 0.5  # Minimum combined similarity for matching (lower = more lenient)
+
+  # Similarity weights (should sum to ~1.0)
+  spatial_weight: 0.3  # Weight for bbox IoU
+  clip_weight: 0.7     # Weight for CLIP similarity (more weight on semantics)
+
+  # Tracking parameters
+  max_missing_frames: 10  # Max frames before object becomes inactive
+  min_observations: 2      # Min observations to confirm object
+
+  # Visualization
+  show_tracks: true        # Show object IDs and trajectories
+  show_confirmed_only: false  # Only show confirmed tracks

@@ -1,0 +1,73 @@
+# Virtual environment
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Hydra outputs
+outputs/
+multirun/
+.hydra/
+
+# Scene graph exports
+scene_graphs/
+semantic_objects_data/
+
+# Data and models
+data/
+*.pth
+*.pt
+*.ckpt
+*.pkl
+*.pkl.gz
+*.safetensors
+*.bin
+*.h5
+*.hdf5
+models/
+checkpoints/
+weights/
+
+# Large numpy arrays (outputs from demos)
+*.npy
+*.npz
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Rerun recordings
+*.rrd
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
+*PHASE_4_1_STATUS.md

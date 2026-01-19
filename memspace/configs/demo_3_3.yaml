@@ -1,0 +1,65 @@
+defaults:
+  - base
+  - dataset: replica
+  - _self_
+
+# Demo 3.3: Per-Object 3D Reconstruction
+
+# Model settings
+model:
+  sam:
+    model_type: mobile_sam
+    device: ${device}
+  clip:
+    model_name: ViT-H-14
+    pretrained: laion2b_s32b_b79k
+    device: ${device}
+
+# SAM Segmentation settings
+segmentation:
+  min_mask_area: 100
+  max_masks_per_frame: 50
+  merge_masks: true
+  merge_iou_threshold: 0.5
+  merge_containment_threshold: 0.85
+
+# CLIP feature extraction
+clip_features:
+  padding: 20
+  batch_size: 8
+
+# Object tracking settings
+tracking:
+  sim_threshold: 0.5
+  spatial_weight: 0.3
+  clip_weight: 0.7
+  max_missing_frames: 10
+  min_observations: 2
+
+# Per-object reconstruction settings
+object_reconstruction:
+  voxel_size: 0.02  # 2cm voxels per object
+  max_depth: 10.0
+  min_points: 100  # Minimum points to consider object valid
+  outlier_removal: true
+  outlier_nb_neighbors: 20
+  outlier_std_ratio: 2.0
+
+# Visualization settings
+visualization:
+  show_individual_objects: true
+  max_objects_to_show: 20  # Limit for performance
+  extract_meshes: false  # Set to true for mesh extraction (slower)
+  mesh_method: poisson
+  poisson_depth: 8
+
+# Dataset settings
+dataset:
+  stride: 20  # Process every 20th frame
+  max_frames: 50  # Process 50 frames
+  start_frame: 0
+
+# Rerun visualization
+use_rerun: true
+rerun_save_path: null
+rerun_spawn: true

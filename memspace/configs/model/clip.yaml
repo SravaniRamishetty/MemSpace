@@ -1,0 +1,14 @@
+# CLIP model configuration
+# Model options: ViT-B-32, ViT-H-14, ViT-L-14
+model_name: ViT-H-14
+
+# Pretrained weights
+# For ViT-H-14: laion2b_s32b_b79k (recommended, same as ConceptGraphs)
+# For ViT-B-32: openai, laion2b_s34b_b79k
+pretrained: laion2b_s32b_b79k
+
+device: ${device}
+
+# Feature extraction settings
+batch_size: 32  # Batch size for processing multiple crops
+padding: 20  # Padding around bounding boxes (pixels)

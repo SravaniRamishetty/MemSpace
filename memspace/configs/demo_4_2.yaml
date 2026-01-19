@@ -1,0 +1,78 @@
+defaults:
+  - base
+  - dataset: replica
+  - _self_
+
+# Demo 4.2: Semantic 3D Objects
+# Complete pipeline: SAM → CLIP → Tracking → 3D Reconstruction → Labeling
+
+# Model settings
+model:
+  sam:
+    model_type: mobile_sam
+    device: ${device}
+  clip:
+    model_name: ViT-H-14
+    pretrained: laion2b_s32b_b79k
+    device: ${device}
+  florence:
+    model_name: microsoft/Florence-2-base  # or microsoft/Florence-2-large
+    device: ${device}
+    torch_dtype: float16  # float16 for GPU, float32 for CPU
+
+# SAM Segmentation settings
+segmentation:
+  min_mask_area: 100
+  max_masks_per_frame: 50
+  merge_masks: true
+  merge_iou_threshold: 0.5
+  merge_containment_threshold: 0.85
+
+# CLIP feature extraction
+clip_features:
+  padding: 20
+  batch_size: 8
+
+# Object tracking settings
+tracking:
+  sim_threshold: 0.5
+  spatial_weight: 0.3
+  clip_weight: 0.7
+  max_missing_frames: 10
+  min_observations: 2
+
+# 3D Reconstruction settings
+reconstruction:
+  voxel_size: 0.02  # 2cm voxel downsampling
+  min_points: 100   # Minimum points for valid object
+
+# Object captioning settings
+captioning:
+  caption_task: <CAPTION>  # <CAPTION>, <DETAILED_CAPTION>, <MORE_DETAILED_CAPTION>
+  caption_interval: 5  # Caption every N frames
+  max_captions_per_object: 5
+  min_caption_length: 3
+  crop_padding: 20
+
+# Visualization settings
+visualization:
+  show_objects: true
+  show_bboxes: true
+  show_labels: true
+  max_objects_to_show: 20
+
+# Dataset settings
+dataset:
+  stride: 20  # Process every 20th frame
+  max_frames: 15  # Process 15 frames (for faster demo)
+  start_frame: 0
+
+# Rerun visualization
+use_rerun: true
+rerun_save_path: null
+rerun_spawn: true
+
+# Save semantic objects to JSON
+save_objects: true
+objects_json_path: outputs/semantic_objects.json
+objects_data_dir: outputs/semantic_objects_data
