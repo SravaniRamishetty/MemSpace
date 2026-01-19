@@ -1,0 +1,23 @@
+# LLaVA model configuration
+
+# Model path (use environment variable LLAVA_CKPT_PATH if null)
+model_path: null  # or set to specific path like "/path/to/llava-v1.5-7b"
+
+# Base model path (for LoRA models, otherwise null)
+model_base: null
+
+# Model name (auto-detected if null)
+model_name: null
+
+# Quantization options
+load_8bit: false
+load_4bit: false
+
+# Conversation mode (auto-detected if null)
+# Options: llava_v0, llava_v1, llava_llama_2, mistral_instruct, etc.
+conv_mode: null
+
+device: ${device}
+
+# Query prompt for object captioning
+default_query: "What is the central object in this image?"

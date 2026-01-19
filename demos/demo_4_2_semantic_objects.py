@@ -31,6 +31,7 @@ from memspace.dataset.replica_dataset import ReplicaDataset
 from memspace.models.sam_wrapper import SAMWrapper
 from memspace.models.clip_wrapper import CLIPWrapper
 from memspace.models.florence_wrapper import FlorenceWrapper
+from memspace.models.llava_wrapper import LLaVAWrapper
 from memspace.scenegraph.semantic_object import SemanticObject, SemanticObjectManager
 from memspace.utils import rerun_utils
 from memspace.utils.mask_utils import merge_overlapping_masks
@@ -211,13 +212,36 @@ def main(cfg: DictConfig):
     )
     print()
 
-    print(f"🤖 Initializing Florence-2 model: {cfg.model.florence.model_name}")
-    florence_model = FlorenceWrapper(
-        model_name=cfg.model.florence.model_name,
-        device=cfg.model.florence.device,
-        torch_dtype=cfg.model.florence.get('torch_dtype', 'float16'),
-    )
-    print()
+    # Initialize VLM based on vlm_type
+    vlm_type = cfg.get('vlm_type', 'florence').lower()
+
+    if vlm_type == "florence":
+        print(f"🤖 Initializing Florence-2 model: {cfg.model.florence.model_name}")
+        vlm_model = FlorenceWrapper(
+            model_name=cfg.model.florence.model_name,
+            device=cfg.model.florence.device,
+            torch_dtype=cfg.model.florence.get('torch_dtype', 'float16'),
+        )
+        caption_task = cfg.captioning.caption_task
+        caption_query = None
+        print()
+    elif vlm_type == "llava":
+        print(f"🤖 Initializing LLaVA model")
+        llava_cfg = cfg.model.llava
+        vlm_model = LLaVAWrapper(
+            model_path=llava_cfg.get('model_path'),
+            model_base=llava_cfg.get('model_base'),
+            model_name=llava_cfg.get('model_name'),
+            load_8bit=llava_cfg.get('load_8bit', False),
+            load_4bit=llava_cfg.get('load_4bit', False),
+            device=llava_cfg.get('device', cfg.device),
+            conv_mode=llava_cfg.get('conv_mode'),
+        )
+        caption_task = None
+        caption_query = llava_cfg.get('default_query', 'What is the central object in this image?')
+        print()
+    else:
+        raise ValueError(f"Unknown vlm_type: {vlm_type}. Must be 'florence' or 'llava'.")
 
     # Initialize Semantic Object Tracker
     track_cfg = cfg.tracking
@@ -370,11 +394,17 @@ def main(cfg: DictConfig):
                     # Extract crop
                     crop = color_np[y1:y2, x1:x2]
 
-                    # Caption
-                    caption = florence_model.caption_image(
-                        crop,
-                        task=caption_cfg.caption_task,
-                    )
+                    # Caption with appropriate VLM
+                    if vlm_type == "florence":
+                        caption = vlm_model.caption_image(
+                            crop,
+                            task=caption_task,
+                        )
+                    else:  # llava
+                        caption = vlm_model.caption_image(
+                            crop,
+                            query=caption_query,
+                        )
                     captions.append(caption)
 
                 # Add captions to objects

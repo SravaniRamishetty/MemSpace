@@ -1,0 +1,23 @@
+# Florence-2 model configuration
+
+# Model name
+# - "microsoft/Florence-2-base" (232M params, faster)
+# - "microsoft/Florence-2-large" (771M params, better quality)
+model_name: microsoft/Florence-2-base
+
+device: ${device}
+
+# Data type for model
+# - "float16": Half precision (faster, less memory)
+# - "float32": Full precision (slower, more memory)
+torch_dtype: float16
+
+# Caption task
+# - "<CAPTION>": Basic caption
+# - "<DETAILED_CAPTION>": More detailed caption
+# - "<MORE_DETAILED_CAPTION>": Very detailed caption
+caption_task: <DETAILED_CAPTION>
+
+# Generation settings
+max_new_tokens: 1024
+batch_size: 4

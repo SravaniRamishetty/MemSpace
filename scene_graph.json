@@ -1,0 +1,1783 @@
+{
+  "metadata": {
+    "total_objects": 22,
+    "confirmed_objects": 20,
+    "exported_objects": 20,
+    "min_observations": 2,
+    "min_points": 100,
+    "data_directory": "outputs/semantic_objects_data"
+  },
+  "statistics": {
+    "total_objects": 22,
+    "confirmed_objects": 20,
+    "active_objects": 16,
+    "objects_with_labels": 22,
+    "avg_points_per_object": 110038.95454545454,
+    "avg_observations_per_object": 5.863636363636363,
+    "avg_confidence": 0.4227272727272728
+  },
+  "objects": [
+    {
+      "object_id": 0,
+      "label": "The central object in this image is a wooden dresser or cabinet.",
+      "caption_history": [
+        "The central object in this image is a wooden dresser.",
+        "The central object in this image is a wooden dresser or cabinet."
+      ],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 11,
+      "semantic_confidence": 1.0,
+      "tracking_confidence": 1.0,
+      "confidence": 1.0,
+      "num_points": 120981,
+      "bounding_box_3d": {
+        "center": [
+          1.120002323133921,
+          1.071125805691217,
+          -0.127443943395946
+        ],
+        "size": [
+          3.999372559881208,
+          4.514800297860926,
+          2.7983469907394274
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8796839568066834,
+          -1.186274343239246,
+          -1.5266174387656597
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          -1.5266174387656597
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          -1.5266174387656597
+        ],
+        [
+          -0.8796839568066834,
+          3.32852595462168,
+          -1.5266174387656597
+        ],
+        [
+          -0.8796839568066834,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8796839568066834,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        243.0,
+        93.0,
+        639.0,
+        444.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_000_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_000_points.npy",
+      "point_cloud_points_shape": [
+        120981,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_000_colors.npy",
+      "point_cloud_colors_shape": [
+        120981,
+        3
+      ]
+    },
+    {
+      "object_id": 1,
+      "label": "The central object in this image is a wooden shoe or a wooden heel.",
+      "caption_history": [
+        "The central object in this image is a chair.",
+        "The central object in this image is a chair.",
+        "The central object in this image is a chair.",
+        "The central object in this image is a wooden shoe or a wooden heel."
+      ],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 10,
+      "semantic_confidence": 1.0,
+      "tracking_confidence": 1.0,
+      "confidence": 1.0,
+      "num_points": 118365,
+      "bounding_box_3d": {
+        "center": [
+          1.1200354589739758,
+          1.071125805691217,
+          -0.12746972865040052
+        ],
+        "size": [
+          3.9993062882010983,
+          4.514800297860926,
+          2.7983985612483364
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8796176851265733,
+          -1.186274343239246,
+          -1.5266690092745687
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          -1.5266690092745687
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          -1.5266690092745687
+        ],
+        [
+          -0.8796176851265733,
+          3.32852595462168,
+          -1.5266690092745687
+        ],
+        [
+          -0.8796176851265733,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8796176851265733,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        136.0,
+        412.0,
+        199.0,
+        468.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_001_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_001_points.npy",
+      "point_cloud_points_shape": [
+        118365,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_001_colors.npy",
+      "point_cloud_colors_shape": [
+        118365,
+        3
+      ]
+    },
+    {
+      "object_id": 2,
+      "label": "object_2",
+      "caption_history": [],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 5,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.5,
+      "confidence": 0.25,
+      "num_points": 123054,
+      "bounding_box_3d": {
+        "center": [
+          1.1201932695641097,
+          1.071125805691217,
+          -0.12759317124829517
+        ],
+        "size": [
+          3.9989906670208306,
+          4.514800297860926,
+          2.7986454464441257
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8793020639463058,
+          -1.186274343239246,
+          -1.526915894470358
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          -1.526915894470358
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          -1.526915894470358
+        ],
+        [
+          -0.8793020639463058,
+          3.32852595462168,
+          -1.526915894470358
+        ],
+        [
+          -0.8793020639463058,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8793020639463058,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        360.0,
+        203.0,
+        434.0,
+        290.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_002_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_002_points.npy",
+      "point_cloud_points_shape": [
+        123054,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_002_colors.npy",
+      "point_cloud_colors_shape": [
+        123054,
+        3
+      ]
+    },
+    {
+      "object_id": 3,
+      "label": "object_3",
+      "caption_history": [],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 6,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.6,
+      "confidence": 0.3,
+      "num_points": 111260,
+      "bounding_box_3d": {
+        "center": [
+          1.1293328689047821,
+          1.0710089437694124,
+          -0.12871648870070185
+        ],
+        "size": [
+          4.018843007613823,
+          4.515034021704535,
+          2.8008920813489393
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8800886349021291,
+          -1.1865080670828552,
+          -1.5291625293751714
+        ],
+        [
+          3.1387543727116936,
+          -1.1865080670828552,
+          -1.5291625293751714
+        ],
+        [
+          3.1387543727116936,
+          3.32852595462168,
+          -1.5291625293751714
+        ],
+        [
+          -0.8800886349021291,
+          3.32852595462168,
+          -1.5291625293751714
+        ],
+        [
+          -0.8800886349021291,
+          -1.1865080670828552,
+          1.2717295519737677
+        ],
+        [
+          3.1387543727116936,
+          -1.1865080670828552,
+          1.2717295519737677
+        ],
+        [
+          3.1387543727116936,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8800886349021291,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        56.0,
+        291.0,
+        82.0,
+        301.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_003_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_003_points.npy",
+      "point_cloud_points_shape": [
+        111260,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_003_colors.npy",
+      "point_cloud_colors_shape": [
+        111260,
+        3
+      ]
+    },
+    {
+      "object_id": 4,
+      "label": "The central object in this image is a person's hand holding a piece of paper.",
+      "caption_history": [
+        "The central object in this image is a person's hand holding a piece of paper.",
+        "The central object in this image is a person's arm."
+      ],
+      "status": "missing",
+      "first_seen_frame": 0,
+      "last_seen_frame": 2,
+      "num_observations": 8,
+      "semantic_confidence": 1.0,
+      "tracking_confidence": 0.8,
+      "confidence": 0.9,
+      "num_points": 89121,
+      "bounding_box_3d": {
+        "center": [
+          1.1294122028070732,
+          0.9117328252421762,
+          -0.13221164416490283
+        ],
+        "size": [
+          4.018684339809241,
+          4.196401960856867,
+          2.794229187029599
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8799299670975472,
+          -1.186468155186257,
+          -1.5293262376797023
+        ],
+        [
+          3.1387543727116936,
+          -1.186468155186257,
+          -1.5293262376797023
+        ],
+        [
+          3.1387543727116936,
+          3.0099338056706095,
+          -1.5293262376797023
+        ],
+        [
+          -0.8799299670975472,
+          3.0099338056706095,
+          -1.5293262376797023
+        ],
+        [
+          -0.8799299670975472,
+          -1.186468155186257,
+          1.2649029493498967
+        ],
+        [
+          3.1387543727116936,
+          -1.186468155186257,
+          1.2649029493498967
+        ],
+        [
+          3.1387543727116936,
+          3.0099338056706095,
+          1.2649029493498967
+        ],
+        [
+          -0.8799299670975472,
+          3.0099338056706095,
+          1.2649029493498967
+        ]
+      ],
+      "current_bbox_2d": [
+        0.0,
+        262.0,
+        56.0,
+        304.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_004_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_004_points.npy",
+      "point_cloud_points_shape": [
+        89121,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_004_colors.npy",
+      "point_cloud_colors_shape": [
+        89121,
+        3
+      ]
+    },
+    {
+      "object_id": 5,
+      "label": "The central object in this image is a wooden dresser or cabinet.",
+      "caption_history": [
+        "The central object in this image is a wooden chest or dresser.",
+        "The central object in this image is a wooden dresser or cabinet."
+      ],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 9,
+      "semantic_confidence": 1.0,
+      "tracking_confidence": 0.9,
+      "confidence": 0.95,
+      "num_points": 122861,
+      "bounding_box_3d": {
+        "center": [
+          1.120237924998782,
+          1.071125805691217,
+          -0.127443943395946
+        ],
+        "size": [
+          3.998901356151486,
+          4.514800297860926,
+          2.7983469907394274
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8792127530769613,
+          -1.186274343239246,
+          -1.5266174387656597
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          -1.5266174387656597
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          -1.5266174387656597
+        ],
+        [
+          -0.8792127530769613,
+          3.32852595462168,
+          -1.5266174387656597
+        ],
+        [
+          -0.8792127530769613,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8792127530769613,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        315.0,
+        307.0,
+        487.0,
+        415.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_005_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_005_points.npy",
+      "point_cloud_points_shape": [
+        122861,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_005_colors.npy",
+      "point_cloud_colors_shape": [
+        122861,
+        3
+      ]
+    },
+    {
+      "object_id": 6,
+      "label": "object_6",
+      "caption_history": [],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 5,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.5,
+      "confidence": 0.25,
+      "num_points": 123054,
+      "bounding_box_3d": {
+        "center": [
+          1.1201932695641097,
+          1.071125805691217,
+          -0.12759317124829517
+        ],
+        "size": [
+          3.9989906670208306,
+          4.514800297860926,
+          2.7986454464441257
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8793020639463058,
+          -1.186274343239246,
+          -1.526915894470358
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          -1.526915894470358
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          -1.526915894470358
+        ],
+        [
+          -0.8793020639463058,
+          3.32852595462168,
+          -1.526915894470358
+        ],
+        [
+          -0.8793020639463058,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8793020639463058,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        0.0,
+        295.0,
+        82.0,
+        377.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_006_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_006_points.npy",
+      "point_cloud_points_shape": [
+        123054,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_006_colors.npy",
+      "point_cloud_colors_shape": [
+        123054,
+        3
+      ]
+    },
+    {
+      "object_id": 7,
+      "label": "object_7",
+      "caption_history": [],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 5,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.5,
+      "confidence": 0.25,
+      "num_points": 123054,
+      "bounding_box_3d": {
+        "center": [
+          1.1201932695641097,
+          1.071125805691217,
+          -0.12759317124829517
+        ],
+        "size": [
+          3.9989906670208306,
+          4.514800297860926,
+          2.7986454464441257
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8793020639463058,
+          -1.186274343239246,
+          -1.526915894470358
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          -1.526915894470358
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          -1.526915894470358
+        ],
+        [
+          -0.8793020639463058,
+          3.32852595462168,
+          -1.526915894470358
+        ],
+        [
+          -0.8793020639463058,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8793020639463058,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        445.0,
+        300.0,
+        467.0,
+        341.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_007_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_007_points.npy",
+      "point_cloud_points_shape": [
+        123054,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_007_colors.npy",
+      "point_cloud_colors_shape": [
+        123054,
+        3
+      ]
+    },
+    {
+      "object_id": 8,
+      "label": "object_8",
+      "caption_history": [],
+      "status": "missing",
+      "first_seen_frame": 0,
+      "last_seen_frame": 1,
+      "num_observations": 2,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.2,
+      "confidence": 0.1,
+      "num_points": 73845,
+      "bounding_box_3d": {
+        "center": [
+          1.1293999900648428,
+          0.9119126604941546,
+          -0.22245107943709874
+        ],
+        "size": [
+          4.0187087652937015,
+          4.199715532073396,
+          2.609814207428416
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8799543925820079,
+          -1.1879451055425434,
+          -1.5273581831513066
+        ],
+        [
+          3.1387543727116936,
+          -1.1879451055425434,
+          -1.5273581831513066
+        ],
+        [
+          3.1387543727116936,
+          3.0117704265308527,
+          -1.5273581831513066
+        ],
+        [
+          -0.8799543925820079,
+          3.0117704265308527,
+          -1.5273581831513066
+        ],
+        [
+          -0.8799543925820079,
+          -1.1879451055425434,
+          1.082456024277109
+        ],
+        [
+          3.1387543727116936,
+          -1.1879451055425434,
+          1.082456024277109
+        ],
+        [
+          3.1387543727116936,
+          3.0117704265308527,
+          1.082456024277109
+        ],
+        [
+          -0.8799543925820079,
+          3.0117704265308527,
+          1.082456024277109
+        ]
+      ],
+      "current_bbox_2d": [
+        196.0,
+        316.0,
+        225.0,
+        358.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_008_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_008_points.npy",
+      "point_cloud_points_shape": [
+        73845,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_008_colors.npy",
+      "point_cloud_colors_shape": [
+        73845,
+        3
+      ]
+    },
+    {
+      "object_id": 9,
+      "label": "The central object in this image is a bed with pillows and a white comforter.",
+      "caption_history": [
+        "The central object in this image is a bed with pillows and a white comforter.",
+        "The central object in this image is a pillow.",
+        "The central object in this image is a bowl.",
+        "The central object in this image is a person's back."
+      ],
+      "status": "missing",
+      "first_seen_frame": 0,
+      "last_seen_frame": 3,
+      "num_observations": 11,
+      "semantic_confidence": 1.0,
+      "tracking_confidence": 1.0,
+      "confidence": 1.0,
+      "num_points": 102550,
+      "bounding_box_3d": {
+        "center": [
+          1.1201367826450168,
+          1.032347299146042,
+          -0.1302257716017322
+        ],
+        "size": [
+          3.9991036408590164,
+          4.437401423696146,
+          2.7950880661712603
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8794150377844911,
+          -1.1863534127020308,
+          -1.5277698046873622
+        ],
+        [
+          3.119688603074525,
+          -1.1863534127020308,
+          -1.5277698046873622
+        ],
+        [
+          3.119688603074525,
+          3.251048010994115,
+          -1.5277698046873622
+        ],
+        [
+          -0.8794150377844911,
+          3.251048010994115,
+          -1.5277698046873622
+        ],
+        [
+          -0.8794150377844911,
+          -1.1863534127020308,
+          1.2673182614838978
+        ],
+        [
+          3.119688603074525,
+          -1.1863534127020308,
+          1.2673182614838978
+        ],
+        [
+          3.119688603074525,
+          3.251048010994115,
+          1.2673182614838978
+        ],
+        [
+          -0.8794150377844911,
+          3.251048010994115,
+          1.2673182614838978
+        ]
+      ],
+      "current_bbox_2d": [
+        9.0,
+        428.0,
+        141.0,
+        479.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_009_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_009_points.npy",
+      "point_cloud_points_shape": [
+        102550,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_009_colors.npy",
+      "point_cloud_colors_shape": [
+        102550,
+        3
+      ]
+    },
+    {
+      "object_id": 10,
+      "label": "The central object in this image is a small table with a can of broccoli on it.",
+      "caption_history": [
+        "The central object in this image is a table with two stools on it.",
+        "The central object in this image is a small table with a can of broccoli on it."
+      ],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 11,
+      "semantic_confidence": 1.0,
+      "tracking_confidence": 1.0,
+      "confidence": 1.0,
+      "num_points": 121036,
+      "bounding_box_3d": {
+        "center": [
+          1.1200748763414363,
+          1.071125805691217,
+          -0.12734297316529375
+        ],
+        "size": [
+          3.9992274534661774,
+          4.514800297860926,
+          2.798145050278123
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8795388503916525,
+          -1.186274343239246,
+          -1.5264154983043552
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          -1.5264154983043552
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          -1.5264154983043552
+        ],
+        [
+          -0.8795388503916525,
+          3.32852595462168,
+          -1.5264154983043552
+        ],
+        [
+          -0.8795388503916525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8795388503916525,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        0.0,
+        439.0,
+        108.0,
+        479.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_010_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_010_points.npy",
+      "point_cloud_points_shape": [
+        121036,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_010_colors.npy",
+      "point_cloud_colors_shape": [
+        121036,
+        3
+      ]
+    },
+    {
+      "object_id": 11,
+      "label": "object_11",
+      "caption_history": [],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 5,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.5,
+      "confidence": 0.25,
+      "num_points": 123054,
+      "bounding_box_3d": {
+        "center": [
+          1.1201932695641097,
+          1.071125805691217,
+          -0.12759317124829517
+        ],
+        "size": [
+          3.9989906670208306,
+          4.514800297860926,
+          2.7986454464441257
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8793020639463058,
+          -1.186274343239246,
+          -1.526915894470358
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          -1.526915894470358
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          -1.526915894470358
+        ],
+        [
+          -0.8793020639463058,
+          3.32852595462168,
+          -1.526915894470358
+        ],
+        [
+          -0.8793020639463058,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8793020639463058,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        171.0,
+        162.0,
+        242.0,
+        424.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_011_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_011_points.npy",
+      "point_cloud_points_shape": [
+        123054,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_011_colors.npy",
+      "point_cloud_colors_shape": [
+        123054,
+        3
+      ]
+    },
+    {
+      "object_id": 12,
+      "label": "object_12",
+      "caption_history": [],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 5,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.5,
+      "confidence": 0.25,
+      "num_points": 123054,
+      "bounding_box_3d": {
+        "center": [
+          1.1201932695641097,
+          1.071125805691217,
+          -0.12759317124829517
+        ],
+        "size": [
+          3.9989906670208306,
+          4.514800297860926,
+          2.7986454464441257
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8793020639463058,
+          -1.186274343239246,
+          -1.526915894470358
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          -1.526915894470358
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          -1.526915894470358
+        ],
+        [
+          -0.8793020639463058,
+          3.32852595462168,
+          -1.526915894470358
+        ],
+        [
+          -0.8793020639463058,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8793020639463058,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        125.0,
+        242.0,
+        148.0,
+        261.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_012_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_012_points.npy",
+      "point_cloud_points_shape": [
+        123054,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_012_colors.npy",
+      "point_cloud_colors_shape": [
+        123054,
+        3
+      ]
+    },
+    {
+      "object_id": 13,
+      "label": "object_13",
+      "caption_history": [],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 4,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.4,
+      "confidence": 0.2,
+      "num_points": 118288,
+      "bounding_box_3d": {
+        "center": [
+          1.1200221947138476,
+          1.071125805691217,
+          -0.1274986697144347
+        ],
+        "size": [
+          3.999332816721355,
+          4.514800297860926,
+          2.7984564433764048
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8796442136468299,
+          -1.186274343239246,
+          -1.526726891402637
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          -1.526726891402637
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          -1.526726891402637
+        ],
+        [
+          -0.8796442136468299,
+          3.32852595462168,
+          -1.526726891402637
+        ],
+        [
+          -0.8796442136468299,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8796442136468299,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        128.0,
+        293.0,
+        143.0,
+        312.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_013_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_013_points.npy",
+      "point_cloud_points_shape": [
+        118288,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_013_colors.npy",
+      "point_cloud_colors_shape": [
+        118288,
+        3
+      ]
+    },
+    {
+      "object_id": 14,
+      "label": "object_14",
+      "caption_history": [],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 8,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.8,
+      "confidence": 0.4,
+      "num_points": 121350,
+      "bounding_box_3d": {
+        "center": [
+          1.1200078517317644,
+          1.071125805691217,
+          -0.1276404220152254
+        ],
+        "size": [
+          3.999361502685521,
+          4.514800297860926,
+          2.798739947977986
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8796728996109959,
+          -1.186274343239246,
+          -1.5270103960042185
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          -1.5270103960042185
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          -1.5270103960042185
+        ],
+        [
+          -0.8796728996109959,
+          3.32852595462168,
+          -1.5270103960042185
+        ],
+        [
+          -0.8796728996109959,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8796728996109959,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        594.0,
+        413.0,
+        639.0,
+        462.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_014_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_014_points.npy",
+      "point_cloud_points_shape": [
+        121350,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_014_colors.npy",
+      "point_cloud_colors_shape": [
+        121350,
+        3
+      ]
+    },
+    {
+      "object_id": 15,
+      "label": "object_15",
+      "caption_history": [],
+      "status": "active",
+      "first_seen_frame": 0,
+      "last_seen_frame": 4,
+      "num_observations": 7,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.7,
+      "confidence": 0.35,
+      "num_points": 121990,
+      "bounding_box_3d": {
+        "center": [
+          1.1200625531738184,
+          1.071125805691217,
+          -0.12772205312142837
+        ],
+        "size": [
+          3.999252099801413,
+          4.514800297860926,
+          2.7989032101903923
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8795634967268883,
+          -1.186274343239246,
+          -1.5271736582166244
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          -1.5271736582166244
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          -1.5271736582166244
+        ],
+        [
+          -0.8795634967268883,
+          3.32852595462168,
+          -1.5271736582166244
+        ],
+        [
+          -0.8795634967268883,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.119688603074525,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8795634967268883,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        342.0,
+        305.0,
+        356.0,
+        334.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_015_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_015_points.npy",
+      "point_cloud_points_shape": [
+        121990,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_015_colors.npy",
+      "point_cloud_colors_shape": [
+        121990,
+        3
+      ]
+    },
+    {
+      "object_id": 16,
+      "label": "object_16",
+      "caption_history": [],
+      "status": "missing",
+      "first_seen_frame": 1,
+      "last_seen_frame": 3,
+      "num_observations": 4,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.4,
+      "confidence": 0.2,
+      "num_points": 99345,
+      "bounding_box_3d": {
+        "center": [
+          1.1282827415578152,
+          1.0323032354100303,
+          -0.1300940709749283
+        ],
+        "size": [
+          4.015322534596756,
+          4.437489551168169,
+          2.7948246649176522
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8793785257405626,
+          -1.1864415401740542,
+          -1.5275064034337544
+        ],
+        [
+          3.135944008856193,
+          -1.1864415401740542,
+          -1.5275064034337544
+        ],
+        [
+          3.135944008856193,
+          3.251048010994115,
+          -1.5275064034337544
+        ],
+        [
+          -0.8793785257405626,
+          3.251048010994115,
+          -1.5275064034337544
+        ],
+        [
+          -0.8793785257405626,
+          -1.1864415401740542,
+          1.2673182614838978
+        ],
+        [
+          3.135944008856193,
+          -1.1864415401740542,
+          1.2673182614838978
+        ],
+        [
+          3.135944008856193,
+          3.251048010994115,
+          1.2673182614838978
+        ],
+        [
+          -0.8793785257405626,
+          3.251048010994115,
+          1.2673182614838978
+        ]
+      ],
+      "current_bbox_2d": [
+        319.0,
+        414.0,
+        425.0,
+        479.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_016_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_016_points.npy",
+      "point_cloud_points_shape": [
+        99345,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_016_colors.npy",
+      "point_cloud_colors_shape": [
+        99345,
+        3
+      ]
+    },
+    {
+      "object_id": 17,
+      "label": "object_17",
+      "caption_history": [],
+      "status": "active",
+      "first_seen_frame": 2,
+      "last_seen_frame": 4,
+      "num_observations": 6,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.6,
+      "confidence": 0.3,
+      "num_points": 113868,
+      "bounding_box_3d": {
+        "center": [
+          1.1093835561226024,
+          1.071125805691217,
+          -0.12744088227613992
+        ],
+        "size": [
+          3.9781047604486393,
+          4.514800297860926,
+          2.7983408684998152
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8796688241017173,
+          -1.186274343239246,
+          -1.5266113165260475
+        ],
+        [
+          3.098435936346922,
+          -1.186274343239246,
+          -1.5266113165260475
+        ],
+        [
+          3.098435936346922,
+          3.32852595462168,
+          -1.5266113165260475
+        ],
+        [
+          -0.8796688241017173,
+          3.32852595462168,
+          -1.5266113165260475
+        ],
+        [
+          -0.8796688241017173,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.098435936346922,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.098435936346922,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8796688241017173,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        65.0,
+        21.0,
+        141.0,
+        65.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_017_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_017_points.npy",
+      "point_cloud_points_shape": [
+        113868,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_017_colors.npy",
+      "point_cloud_colors_shape": [
+        113868,
+        3
+      ]
+    },
+    {
+      "object_id": 19,
+      "label": "object_19",
+      "caption_history": [],
+      "status": "missing",
+      "first_seen_frame": 2,
+      "last_seen_frame": 3,
+      "num_observations": 2,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.2,
+      "confidence": 0.1,
+      "num_points": 95480,
+      "bounding_box_3d": {
+        "center": [
+          1.1123835589420024,
+          1.0323868338774345,
+          -0.13065979955502927
+        ],
+        "size": [
+          3.983959859016993,
+          4.437322354233361,
+          2.795956122077854
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8795963705664942,
+          -1.186274343239246,
+          -1.5286378605939563
+        ],
+        [
+          3.104363488450499,
+          -1.186274343239246,
+          -1.5286378605939563
+        ],
+        [
+          3.104363488450499,
+          3.251048010994115,
+          -1.5286378605939563
+        ],
+        [
+          -0.8795963705664942,
+          3.251048010994115,
+          -1.5286378605939563
+        ],
+        [
+          -0.8795963705664942,
+          -1.186274343239246,
+          1.2673182614838978
+        ],
+        [
+          3.104363488450499,
+          -1.186274343239246,
+          1.2673182614838978
+        ],
+        [
+          3.104363488450499,
+          3.251048010994115,
+          1.2673182614838978
+        ],
+        [
+          -0.8795963705664942,
+          3.251048010994115,
+          1.2673182614838978
+        ]
+      ],
+      "current_bbox_2d": [
+        157.0,
+        0.0,
+        187.0,
+        13.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_019_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_019_points.npy",
+      "point_cloud_points_shape": [
+        95480,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_019_colors.npy",
+      "point_cloud_colors_shape": [
+        95480,
+        3
+      ]
+    },
+    {
+      "object_id": 20,
+      "label": "object_20",
+      "caption_history": [],
+      "status": "active",
+      "first_seen_frame": 2,
+      "last_seen_frame": 4,
+      "num_observations": 3,
+      "semantic_confidence": 0.0,
+      "tracking_confidence": 0.3,
+      "confidence": 0.15,
+      "num_points": 115168,
+      "bounding_box_3d": {
+        "center": [
+          1.109571462378147,
+          1.071125805691217,
+          -0.12768767278215565
+        ],
+        "size": [
+          3.97772894793755,
+          4.514800297860926,
+          2.7988344495118467
+        ]
+      },
+      "bounding_box_3d_corners": [
+        [
+          -0.8792930115906281,
+          -1.186274343239246,
+          -1.527104897538079
+        ],
+        [
+          3.098435936346922,
+          -1.186274343239246,
+          -1.527104897538079
+        ],
+        [
+          3.098435936346922,
+          3.32852595462168,
+          -1.527104897538079
+        ],
+        [
+          -0.8792930115906281,
+          3.32852595462168,
+          -1.527104897538079
+        ],
+        [
+          -0.8792930115906281,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.098435936346922,
+          -1.186274343239246,
+          1.2717295519737677
+        ],
+        [
+          3.098435936346922,
+          3.32852595462168,
+          1.2717295519737677
+        ],
+        [
+          -0.8792930115906281,
+          3.32852595462168,
+          1.2717295519737677
+        ]
+      ],
+      "current_bbox_2d": [
+        91.0,
+        463.0,
+        147.0,
+        479.0
+      ],
+      "clip_features_path": "outputs/semantic_objects_data/obj_020_clip_features.npy",
+      "clip_features_shape": [
+        1024
+      ],
+      "point_cloud_points_path": "outputs/semantic_objects_data/obj_020_points.npy",
+      "point_cloud_points_shape": [
+        115168,
+        3
+      ],
+      "point_cloud_colors_path": "outputs/semantic_objects_data/obj_020_colors.npy",
+      "point_cloud_colors_shape": [
+        115168,
+        3
+      ]
+    }
+  ]
+}
