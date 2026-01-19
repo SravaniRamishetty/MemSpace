@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
-Demo 4.1: Object Labeling with Florence-2
+Demo 4.1: Object Labeling with VLM (Vision Language Model)
 
 This demo demonstrates:
-- Semantic labeling of tracked objects using Florence-2 VLM
+- Semantic labeling of tracked objects using VLM (Florence-2 or LLaVA)
 - Multi-view caption generation
 - Integration of tracking + captioning
 - Labeled object visualization in Rerun
 - Complete pipeline: SAM → CLIP → Tracking → Captioning
+
+Supports both Florence-2 and LLaVA VLMs.
 """
 
 import sys
@@ -27,6 +29,12 @@ from memspace.dataset.replica_dataset import ReplicaDataset
 from memspace.models.sam_wrapper import SAMWrapper
 from memspace.models.clip_wrapper import CLIPWrapper
 from memspace.models.florence_wrapper import FlorenceWrapper
+try:
+    from memspace.models.llava_wrapper import LLaVAWrapper
+    LLAVA_AVAILABLE = True
+except ImportError:
+    LLAVA_AVAILABLE = False
+
 from memspace.scenegraph.object_tracker import ObjectTracker
 from memspace.scenegraph.object_captioning import ObjectCaptioner
 from memspace.utils import rerun_utils
@@ -37,8 +45,11 @@ from memspace.utils.mask_utils import merge_overlapping_masks
 def main(cfg: DictConfig):
     """Main demo function"""
 
+    # Get VLM type from config
+    vlm_type = cfg.get('vlm_type', 'florence').lower()
+
     print("=" * 70)
-    print("MemSpace Demo 4.1: Object Labeling with Florence-2")
+    print(f"MemSpace Demo 4.1: Object Labeling with {vlm_type.upper()} VLM")
     print("=" * 70)
     print()
 
@@ -84,15 +95,51 @@ def main(cfg: DictConfig):
     )
     print()
 
-    # Initialize Florence-2 model
-    florence_cfg = cfg.model.florence
-    print(f"🤖 Initializing Florence-2 model: {florence_cfg.model_name}")
-    florence_model = FlorenceWrapper(
-        model_name=florence_cfg.model_name,
-        device=florence_cfg.device,
-        torch_dtype=florence_cfg.get('torch_dtype', 'float16'),
-    )
-    print()
+    # Initialize VLM (Florence-2 or LLaVA)
+    if vlm_type == "florence":
+        florence_cfg = cfg.model.florence
+        print(f"🤖 Initializing Florence-2 model: {florence_cfg.model_name}")
+        vlm_model = FlorenceWrapper(
+            model_name=florence_cfg.model_name,
+            device=florence_cfg.device,
+            torch_dtype=florence_cfg.get('torch_dtype', 'float16'),
+        )
+        caption_task = cfg.captioning.caption_task
+        caption_query = None
+        print()
+    elif vlm_type == "llava":
+        if not LLAVA_AVAILABLE:
+            print("❌ Error: LLaVA is not available. Please install LLaVA and set LLAVA_PYTHON_PATH.")
+            print("   Falling back to Florence-2...")
+            vlm_type = "florence"
+            florence_cfg = cfg.model.florence
+            print(f"🤖 Initializing Florence-2 model: {florence_cfg.model_name}")
+            vlm_model = FlorenceWrapper(
+                model_name=florence_cfg.model_name,
+                device=florence_cfg.device,
+                torch_dtype=florence_cfg.get('torch_dtype', 'float16'),
+            )
+            caption_task = cfg.captioning.caption_task
+            caption_query = None
+            print()
+        else:
+            llava_cfg = cfg.model.llava
+            print(f"🤖 Initializing LLaVA model")
+            vlm_model = LLaVAWrapper(
+                model_path=llava_cfg.get('model_path'),
+                model_base=llava_cfg.get('model_base'),
+                model_name=llava_cfg.get('model_name'),
+                load_8bit=llava_cfg.get('load_8bit', False),
+                load_4bit=llava_cfg.get('load_4bit', False),
+                device=llava_cfg.get('device', cfg.device),
+                conv_mode=llava_cfg.get('conv_mode'),
+            )
+            caption_task = None
+            caption_query = llava_cfg.get('default_query', 'What is the central object in this image?')
+            print()
+    else:
+        print(f"❌ Error: Unknown VLM type '{vlm_type}'. Use 'florence' or 'llava'")
+        return
 
     # Initialize Object Tracker
     track_cfg = cfg.tracking
@@ -108,12 +155,17 @@ def main(cfg: DictConfig):
 
     # Initialize Object Captioner
     caption_cfg = cfg.captioning
-    print(f"💬 Initializing Object Captioner")
-    print(f"   Caption task: {caption_cfg.caption_task}")
+    print(f"💬 Initializing Object Captioner ({vlm_type.upper()})")
+    if vlm_type == "florence":
+        print(f"   Caption task: {caption_task}")
+    else:
+        print(f"   Caption query: {caption_query}")
     print(f"   Caption interval: every {caption_cfg.caption_interval} frames")
     captioner = ObjectCaptioner(
-        florence_model=florence_model,
-        caption_task=caption_cfg.caption_task,
+        vlm_model=vlm_model,
+        vlm_type=vlm_type,
+        caption_task=caption_task,
+        caption_query=caption_query,
         max_captions_per_object=caption_cfg.max_captions_per_object,
         min_caption_length=caption_cfg.min_caption_length,
     )

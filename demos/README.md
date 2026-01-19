@@ -1481,28 +1481,34 @@ visualization:
 
 ---
 
-## Demo 4.1: Object Labeling with Florence-2
+## Demo 4.1: Object Labeling with Florence-2 or LLaVA
 
 **File**: `demo_4_1_object_labeling.py`
 
 ### Purpose
-Add semantic understanding to tracked objects using Florence-2 Vision Language Model (VLM) for zero-shot object captioning and labeling.
+Add semantic understanding to tracked objects using Vision Language Models (VLMs) for zero-shot object captioning and labeling. **Supports both Florence-2 and LLaVA** for flexible VLM selection.
 
 ### Design Choices
 
-#### 1. **VLM Selection: Florence-2 (Local/Free)**
-- **Choice**: Microsoft Florence-2 instead of GPT-4V or LLaVA
-- **Rationale**:
-  - **Free and open-source**: No API costs (unlike GPT-4V)
+#### 1. **VLM Selection: Florence-2 (Default) or LLaVA**
+- **Choice**: Support both Microsoft Florence-2 (default) and LLaVA-1.5 for flexible captioning
+- **Florence-2 (Default)**:
+  - **Free and open-source**: No API costs
   - **Local execution**: Privacy and offline capability
   - **Two model sizes**: base (232M params), large (771M params)
   - **Fast inference**: ~0.8-1.2s per object on RTX 4090
   - **Rich tasks**: `<CAPTION>`, `<DETAILED_CAPTION>`, `<MORE_DETAILED_CAPTION>`, `<OD>`, etc.
   - **HuggingFace integration**: Easy to use with transformers library
-- **Comparison with ConceptGraphs**:
-  - CG: GPT-4V (expensive, API) + LLaVA (local, heavier)
-  - MemSpace: Florence-2 (local, lightweight, free)
-- **Trade-off**: Slightly less detailed captions than GPT-4V, but sufficient for object labeling
+  - **Memory efficient**: ~3GB GPU memory
+- **LLaVA-1.5 (Alternative)**:
+  - **Visual instruction tuning**: Better semantic understanding with natural language
+  - **More detailed captions**: Richer descriptions (e.g., "The central object in this image is a wooden dresser")
+  - **Model size**: 7B parameters (llava-v1.5-7b, ~13GB download)
+  - **Memory options**: FP16 (~19GB), 8-bit (~10GB), 4-bit (~5GB)
+  - **Inference speed**: ~2-3s per object
+  - **Same as ConceptGraphs**: Uses LLaVA directly from standalone repo
+- **VLM Switching**: Single config parameter `vlm_type=florence` or `vlm_type=llava`
+- **Trade-off**: Florence-2 is faster and lighter; LLaVA provides richer semantic understanding
 
 #### 2. **CRITICAL: Transformers Version Compatibility**
 - **Choice**: Requires `transformers==4.49.0` (not newer versions)
@@ -1725,14 +1731,26 @@ class ObjectCaptioner:
 
 `memspace/configs/demo_4_1.yaml`:
 ```yaml
+# VLM selection (florence or llava)
+vlm_type: florence
+
 model:
   florence:
     model_name: microsoft/Florence-2-base  # or Florence-2-large
     device: ${device}
     torch_dtype: float16
+  llava:
+    model_path: null  # Uses LLAVA_CKPT_PATH env var
+    model_base: null
+    model_name: null  # Auto-detected
+    load_8bit: false
+    load_4bit: false
+    conv_mode: null   # Auto-detected
+    device: ${device}
+    default_query: "What is the central object in this image?"
 
 captioning:
-  caption_task: <CAPTION>  # or <DETAILED_CAPTION>
+  caption_task: <CAPTION>  # or <DETAILED_CAPTION> (Florence-2 only)
   caption_interval: 5      # Caption every 5 frames
   max_captions_per_object: 5
   min_caption_length: 3
@@ -1765,6 +1783,27 @@ visualization:
 
 ### Parameters to Tune
 
+**Use LLaVA instead of Florence-2** (richer captions, slower):
+```bash
+# Prerequisites: Install LLaVA and download checkpoint
+export LLAVA_PYTHON_PATH=/path/to/LLaVA
+export LLAVA_CKPT_PATH=/path/to/llava-v1.5-7b
+
+# Run with LLaVA (8-bit quantization recommended for 24GB GPU)
+python demos/demo_4_1_object_labeling.py \
+  vlm_type=llava \
+  model.llava.load_8bit=true \
+  dataset.max_frames=5
+
+# Full precision (requires ~19GB GPU memory)
+python demos/demo_4_1_object_labeling.py vlm_type=llava
+
+# 4-bit quantization (most memory efficient, ~5GB)
+python demos/demo_4_1_object_labeling.py \
+  vlm_type=llava \
+  model.llava.load_4bit=true
+```
+
 **Use larger Florence-2 model** (better quality, slower):
 ```bash
 python demos/demo_4_1_object_labeling.py \
@@ -1772,7 +1811,7 @@ python demos/demo_4_1_object_labeling.py \
 # 771M params vs. 232M, ~2x slower but better captions
 ```
 
-**More detailed captions**:
+**More detailed captions** (Florence-2 only):
 ```bash
 python demos/demo_4_1_object_labeling.py \
   captioning.caption_task="<DETAILED_CAPTION>"
@@ -1822,10 +1861,50 @@ From experiments on Replica dataset:
 - **Acceptable**: "table", "chair", "wall" (generic but correct)
 - **Consolidation helps**: Multiple views improve label quality
 
+#### LLaVA Architecture
+- **Model**: Vision encoder (CLIP) + LLaMA language model
+- **Parameters**: 7B (llava-v1.5-7b)
+- **Input**: RGB images + text prompts
+- **Output**: Natural language descriptions
+- **Conversation mode**: Visual instruction tuning with conversational templates
+
+#### LLaVA Setup (Optional)
+To use LLaVA instead of Florence-2:
+
+1. **Clone LLaVA repository**:
+```bash
+git clone https://github.com/haotian-liu/LLaVA.git
+cd LLaVA
+pip install -e .
+pip install protobuf
+```
+
+2. **Download checkpoint** (~13GB):
+```bash
+mkdir -p checkpoints
+cd checkpoints
+huggingface-cli download liuhaotian/llava-v1.5-7b --local-dir llava-v1.5-7b
+```
+
+3. **Set environment variables**:
+```bash
+export LLAVA_PYTHON_PATH=/path/to/LLaVA
+export LLAVA_CKPT_PATH=/path/to/LLaVA/checkpoints/llava-v1.5-7b
+```
+
+4. **Run with LLaVA**:
+```bash
+python demos/demo_4_1_object_labeling.py vlm_type=llava model.llava.load_8bit=true
+```
+
+For complete setup instructions, see `VLM_USAGE.md`.
+
 #### Memory Usage
-- Florence-2 base: ~1GB GPU memory
+- **Florence-2 base**: ~3GB GPU memory
+- **LLaVA FP16**: ~19GB GPU memory
+- **LLaVA 8-bit**: ~10GB GPU memory
+- **LLaVA 4-bit**: ~5GB GPU memory
 - Per-object caption storage: ~50-500 bytes per caption
-- Minimal overhead on top of tracking pipeline
 
 ### Design Rationale
 
@@ -1854,7 +1933,7 @@ From experiments on Replica dataset:
 **File**: `demo_4_2_semantic_objects.py`
 
 ### Purpose
-Integrate object tracking (Phase 2.3), 3D reconstruction (Phase 3.3), and semantic labeling (Phase 4.1) into unified `SemanticObject` representations with JSON export capability.
+Integrate object tracking (Phase 2.3), 3D reconstruction (Phase 3.3), and semantic labeling (Phase 4.1) into unified `SemanticObject` representations with JSON export capability. **Supports both Florence-2 and LLaVA** for semantic labeling.
 
 ### Design Choices
 

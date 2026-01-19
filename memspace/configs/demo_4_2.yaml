@@ -6,6 +6,9 @@ defaults:
 # Demo 4.2: Semantic 3D Objects
 # Complete pipeline: SAM → CLIP → Tracking → 3D Reconstruction → Labeling
 
+# VLM selection (florence or llava)
+vlm_type: florence
+
 # Model settings
 model:
   sam:
@@ -19,6 +22,15 @@ model:
     model_name: microsoft/Florence-2-base  # or microsoft/Florence-2-large
     device: ${device}
     torch_dtype: float16  # float16 for GPU, float32 for CPU
+  llava:
+    model_path: null  # Uses LLAVA_CKPT_PATH env var if null
+    model_base: null
+    model_name: null  # Auto-detected if null
+    load_8bit: false
+    load_4bit: false
+    conv_mode: null  # Auto-detected if null
+    device: ${device}
+    default_query: "What is the central object in this image?"
 
 # SAM Segmentation settings
 segmentation:

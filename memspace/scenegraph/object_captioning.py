@@ -2,15 +2,21 @@
 """
 Object Captioning Module
 
-Provides semantic labeling for tracked objects using Florence-2 VLM.
+Provides semantic labeling for tracked objects using VLMs (Vision Language Models).
+Supports both Florence-2 and LLaVA.
 Handles multi-view caption consolidation and object naming.
 """
 
 import numpy as np
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Union
 from collections import defaultdict
 
 from memspace.models.florence_wrapper import FlorenceWrapper
+try:
+    from memspace.models.llava_wrapper import LLaVAWrapper
+    LLAVA_AVAILABLE = True
+except ImportError:
+    LLAVA_AVAILABLE = False
 
 
 class ObjectCaptioner:
@@ -20,12 +26,16 @@ class ObjectCaptioner:
     Generates captions from multiple views and consolidates them into
     consistent object labels. Integrates with ObjectTracker to provide
     semantic understanding of tracked instances.
+
+    Supports both Florence-2 and LLaVA VLMs.
     """
 
     def __init__(
         self,
-        florence_model: FlorenceWrapper,
-        caption_task: str = "<DETAILED_CAPTION>",
+        vlm_model: Union[FlorenceWrapper, 'LLaVAWrapper'],
+        vlm_type: str = "florence",
+        caption_task: Optional[str] = None,
+        caption_query: Optional[str] = None,
         max_captions_per_object: int = 5,
         min_caption_length: int = 5,
     ):
@@ -33,13 +43,26 @@ class ObjectCaptioner:
         Initialize Object Captioner
 
         Args:
-            florence_model: Florence-2 wrapper instance
-            caption_task: Florence-2 task for captioning
+            vlm_model: VLM wrapper instance (Florence or LLaVA)
+            vlm_type: Type of VLM ("florence" or "llava")
+            caption_task: Florence-2 task for captioning (only for Florence)
+            caption_query: Query prompt (for LLaVA or custom Florence prompts)
             max_captions_per_object: Maximum captions to store per object
             min_caption_length: Minimum caption length to accept
         """
-        self.florence = florence_model
-        self.caption_task = caption_task
+        self.vlm_model = vlm_model
+        self.vlm_type = vlm_type.lower()
+
+        # Set default caption task/query based on VLM type
+        if self.vlm_type == "florence":
+            self.caption_task = caption_task or "<DETAILED_CAPTION>"
+            self.caption_query = None
+        elif self.vlm_type == "llava":
+            self.caption_task = None
+            self.caption_query = caption_query or "What is the central object in this image?"
+        else:
+            raise ValueError(f"Unknown VLM type: {vlm_type}. Use 'florence' or 'llava'")
+
         self.max_captions_per_object = max_captions_per_object
         self.min_caption_length = min_caption_length
 
@@ -71,13 +94,23 @@ class ObjectCaptioner:
         if len(object_ids) == 0:
             return {}
 
-        # Extract crops and generate captions
-        crops, captions = self.florence.caption_object_crops(
-            image=image,
-            bboxes=bboxes,
-            padding=padding,
-            task=self.caption_task,
-        )
+        # Extract crops and generate captions based on VLM type
+        if self.vlm_type == "florence":
+            crops, captions = self.vlm_model.caption_object_crops(
+                image=image,
+                bboxes=bboxes,
+                padding=padding,
+                task=self.caption_task,
+            )
+        elif self.vlm_type == "llava":
+            crops, captions = self.vlm_model.caption_object_crops(
+                image=image,
+                bboxes=bboxes,
+                padding=padding,
+                query=self.caption_query,
+            )
+        else:
+            raise ValueError(f"Unknown VLM type: {self.vlm_type}")
 
         # Store captions for each object
         frame_captions = {}

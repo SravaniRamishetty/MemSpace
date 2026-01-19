@@ -3,7 +3,11 @@ defaults:
   - dataset: replica
   - _self_
 
-# Demo 4.1: Object Labeling with Florence-2
+# Demo 4.1: Object Labeling with VLM (Vision Language Model)
+
+# VLM Selection
+# Choose which VLM to use: "florence" or "llava"
+vlm_type: florence  # florence or llava
 
 # Model settings
 model:
@@ -18,6 +22,11 @@ model:
     model_name: microsoft/Florence-2-base  # or microsoft/Florence-2-large
     device: ${device}
     torch_dtype: float16  # float16 for GPU, float32 for CPU
+  llava:
+    model_path: null  # Use LLAVA_CKPT_PATH env var if null
+    conv_mode: default  # default or multimodal
+    num_gpus: 1
+    device: ${device}
 
 # SAM Segmentation settings
 segmentation:
