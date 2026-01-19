@@ -127,9 +127,6 @@ This enables queries like: *"Where was the red mug 30 minutes ago?"*
 
 ---
 
-## 📦 Phase 4.2: Semantic 3D Objects
-
-Phase 4.2 integrates **object tracking**, **3D reconstruction**, and **semantic labeling** into unified `SemanticObject` representations. Each object combines:
 
 ### Unified SemanticObject Data Structure
 
@@ -261,21 +258,6 @@ manager.export_to_json(
 )
 ```
 
-### Phase 4.2 Demo Results
-
-**Test Configuration:**
-- Dataset: 10 frames (stride=1)
-- Models: SAM (mobile_sam) + CLIP (ViT-H-14) + Florence-2-base
-- 3D Reconstruction: 2cm voxel downsampling
-- Captioning: Every 5 frames
-
-**Output Statistics:**
-- **Objects Detected:** 22 confirmed semantic objects
-- **Average Points per Object:** 131,432 points
-- **Average Observations:** 8.5 frames per object
-- **Semantic Labels:** 100% coverage (22/22 objects labeled)
-- **Processing Speed:** 3.0 seconds/frame
-- **JSON Export:** 42KB metadata + 104MB point cloud data
 
 ### Key Advantages
 
@@ -309,54 +291,3 @@ manager.export_to_json(
 
 ---
 
-## 🚀 Getting Started
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/hierarchical-scene-graphs.git
-cd hierarchical-scene-graphs
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run the mapping system
-python run_mapping.py --config configs/default.yaml
-```
-
----
-
-## 📖 Citation
-
-If you use this work in your research, please cite:
-
-```bibtex
-@techreport{spatiotemporal_mapping_2024,
-  title={Hierarchical Scene Graphs for Persistent Robotic Memory and Language-Grounded Reasoning},
-  author={Your Name},
-  year={2024},
-  version={1.4}
-}
-```
-
----
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-## 📧 Contact
-
-For questions or collaboration opportunities, please open an issue or contact [your.email@example.com](mailto:your.email@example.com).
-
----
-
-**Version**: 1.4 (Extended Spatio-Temporal Architecture)  
-**Domains**: Robotics · Computer Vision · Artificial Intelligence

@@ -48,6 +48,7 @@ data/
 models/
 checkpoints/
 weights/
+*.claude
 
 # Large numpy arrays (outputs from demos)
 *.npy
@@ -71,3 +72,4 @@ Thumbs.db
 *.tmp
 *.log
 *PHASE_4_1_STATUS.md
+*PLAN.md
