@@ -3,9 +3,10 @@
 # Input: Semantic objects from Phase 4.2
 semantic_objects_json: outputs/semantic_objects.json
 
-# Spatial reasoning method: "geometric" or "llava"
-# - geometric: Use geometric-based spatial relationship detection (default)
-# - llava: Use LLaVA-based text reasoning with semantic understanding
+# Spatial reasoning method: "geometric", "llava", or "llava_visual"
+# - geometric: Use geometric-based spatial relationship detection (default, fast)
+# - llava: Use LLaVA-based text reasoning with semantic understanding (fast, no GPU)
+# - llava_visual: Use vision-based LLaVA with annotated RGB frames (slow, requires LLaVA model)
 spatial_reasoning_method: geometric
 
 # Spatial relationship detection parameters
@@ -39,3 +40,9 @@ use_rerun: false
 # Filtering for objects to include in graph
 min_observations: 2
 min_points: 100
+
+# Dataset configuration (needed for llava_visual mode)
+defaults:
+  - dataset: replica
+  - model: llava
+  - _self_
