@@ -25,7 +25,7 @@ import numpy as np
 import torch
 import rerun as rr
 
-from memspace.dataset.replica_dataset import ReplicaDataset
+from memspace.dataset import get_dataset
 from memspace.models.sam_wrapper import SAMWrapper
 from memspace.models.clip_wrapper import CLIPWrapper
 from memspace.models.florence_wrapper import FlorenceWrapper
@@ -172,20 +172,10 @@ def main(cfg: DictConfig):
     print()
 
     # Load dataset
-    dataset_cfg = cfg.dataset
-    dataset_path = dataset_cfg.dataset_path
-    print(f"📂 Loading Replica dataset from: {dataset_path}")
+    print(f"📂 Loading  dataset from: {cfg.dataset.dataset_path}")
 
     try:
-        dataset = ReplicaDataset(
-            dataset_path=dataset_path,
-            stride=dataset_cfg.stride,
-            start=dataset_cfg.get('start_frame', 0),
-            end=dataset_cfg.max_frames * dataset_cfg.stride if dataset_cfg.max_frames else -1,
-            height=480,
-            width=640,
-            device=cfg.device,
-        )
+        dataset = get_dataset(cfg.dataset, device=cfg.device)
     except Exception as e:
         print(f"❌ Error loading dataset: {e}")
         return
@@ -199,7 +189,7 @@ def main(cfg: DictConfig):
 
     print("🎬 Processing frames with tracking + captioning...")
     print(f"   Frames: {len(dataset)}")
-    print(f"   Stride: {dataset_cfg.stride}")
+    print(f"   Stride: {cfg.dataset.stride}")
     print()
 
     start_time = time.time()
@@ -399,9 +389,9 @@ Successfully tracked and labeled {len(all_labels)} objects using Florence-2 VLM.
 - **Total captions:** {caption_stats['total_captions']}
 - **Objects labeled:** {len(all_labels)}
 
-## Florence-2 Model:
-- **Model:** {florence_cfg.model_name}
-- **Task:** {caption_cfg.caption_task}
+## VLM Model:
+- **Model:** {cfg.model.florence.model_name if vlm_type == 'florence' else 'LLaVA'}
+- **Task:** {caption_cfg.caption_task if vlm_type == 'florence' else 'Image Captioning'}
 - **Caption interval:** Every {caption_cfg.caption_interval} frames
 
 ## Top Labeled Objects:
@@ -444,9 +434,9 @@ Successfully tracked and labeled {len(all_labels)} objects using Florence-2 VLM.
 - Natural language queries (Phase 5)
 
 ---
-*Dataset: {dataset_path}*
+*Dataset: {cfg.dataset.dataset_path}*
 *Frames: {len(dataset)}*
-*Model: {florence_cfg.model_name}*
+*Model: {cfg.model.florence.model_name}*
 *Objects labeled: {len(all_labels)}*
     """
 

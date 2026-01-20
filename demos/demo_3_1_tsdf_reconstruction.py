@@ -23,7 +23,7 @@ import torch
 import rerun as rr
 import open3d as o3d
 
-from memspace.dataset.replica_dataset import ReplicaDataset
+from memspace.dataset import get_dataset
 from memspace.reconstruction.tsdf_fusion import TSDFVolume
 from memspace.utils import rerun_utils
 
@@ -91,20 +91,10 @@ def main(cfg: DictConfig):
     print()
 
     # Load dataset
-    dataset_cfg = cfg.dataset
-    dataset_path = dataset_cfg.dataset_path
-    print(f"📂 Loading Replica dataset from: {dataset_path}")
+    print(f"📂 Loading  dataset from: {cfg.dataset.dataset_path}")
 
     try:
-        dataset = ReplicaDataset(
-            dataset_path=dataset_path,
-            stride=dataset_cfg.stride,
-            start=dataset_cfg.get('start_frame', 0),
-            end=dataset_cfg.max_frames * dataset_cfg.stride if dataset_cfg.max_frames else -1,
-            height=480,
-            width=640,
-            device=cfg.device,
-        )
+        dataset = get_dataset(cfg.dataset, device=cfg.device)
     except Exception as e:
         print(f"❌ Error loading dataset: {e}")
         return
@@ -127,7 +117,7 @@ def main(cfg: DictConfig):
 
     # Integrate frames into TSDF
     print("🎬 Integrating RGB-D frames into TSDF volume...")
-    print(f"   Processing {len(dataset)} frames (stride {dataset_cfg.stride})")
+    print(f"   Processing {len(dataset)} frames (stride {cfg.dataset.stride})")
     print()
 
     for frame_idx in range(len(dataset)):
@@ -226,7 +216,7 @@ Successfully reconstructed 3D scene using TSDF fusion.
 
 ## Reconstruction Summary:
 - **Frames integrated:** {tsdf.num_frames_integrated}
-- **Frame stride:** {dataset_cfg.stride}
+- **Frame stride:** {cfg.dataset.stride}
 - **Voxel size:** {tsdf_cfg.voxel_size}m ({tsdf_cfg.voxel_size*100:.1f}cm)
 - **SDF truncation:** {tsdf_cfg.sdf_trunc}m ({tsdf_cfg.sdf_trunc*100:.1f}cm)
 
@@ -258,7 +248,7 @@ Successfully reconstructed 3D scene using TSDF fusion.
 Phase 3.2: Per-object 3D reconstruction using tracked masks
 
 ---
-*Dataset: {dataset_path}*
+*Dataset: {cfg.dataset.dataset_path}*
 *Frames: {len(dataset)}*
     """
 

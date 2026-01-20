@@ -1,6 +1,5 @@
 defaults:
   - base
-  - dataset: replica
   - model: sam
   - _self_
 

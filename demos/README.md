@@ -2425,9 +2425,16 @@ with open("semantic_objects.json") as f:
 python demos/demo_5_1_scene_graph.py
 ```
 
-**With LLaVA spatial reasoning**:
+**With LLaVA text-based spatial reasoning**:
 ```bash
 python demos/demo_5_1_scene_graph.py spatial_reasoning_method=llava
+```
+
+**With LLaVA vision-based spatial reasoning** (requires LLaVA model):
+```bash
+export LLAVA_PYTHON_PATH=/path/to/LLaVA
+export LLAVA_CKPT_PATH=/path/to/llava-v1.5-7b
+python demos/demo_5_1_scene_graph.py spatial_reasoning_method=llava_visual
 ```
 
 **Configuration options**:
@@ -2436,7 +2443,7 @@ python demos/demo_5_1_scene_graph.py spatial_reasoning_method=llava
 semantic_objects_json: outputs/semantic_objects.json
 output_json: outputs/scene_graph.json
 
-# Spatial reasoning method: "geometric" or "llava"
+# Spatial reasoning method: "geometric", "llava", or "llava_visual"
 spatial_reasoning_method: geometric
 
 # Relationship detection parameters
@@ -2466,7 +2473,7 @@ use_rerun: false
 - Performance: ~0.01s for 20 objects
 - Best for: Quick prototyping, large-scale scenes
 
-**LLaVA-Based Reasoning**:
+**LLaVA Text-Based Reasoning**:
 - Semantic-aware relationship detection inspired by ConceptGraphs
 - Hybrid approach: Geometric analysis + semantic plausibility checks
 - Query format: "Object 1 is a {label} at position ({x}, {y}, {z})... Object 2 is a {label} at position... What is the relationship?"
@@ -2474,18 +2481,45 @@ use_rerun: false
 - Performance: ~0.01s for 20 objects (no actual VLM inference yet)
 - Best for: Semantically meaningful relationships, object affordances
 
+**LLaVA Vision-Based Reasoning** (NEW):
+- Vision-based spatial relationship detection using LLaVA-1.5-7b VLM
+- Annotates RGB frames with RED (Object 1) and BLUE (Object 2) bounding boxes
+- Queries LLaVA with annotated images for visual spatial reasoning
+- Similar to ConceptGraphs' GPT-4V approach but using local LLaVA model
+- Automatically finds frames where both objects are visible
+- Performance: ~70s for 190 object pairs with LLaVA-1.5-7b (8-bit quantization)
+- Best for: Accurate visual spatial relationships, complex scenes
+- See `outputs/llava_visual_examples/` for annotated example images
+
 **Comparison**:
 
-| Method | Speed | Semantic Awareness | Relationship Types | Accuracy |
-|--------|-------|-------------------|-------------------|----------|
-| **Geometric** | Fast | None | 9 types | High precision |
-| **LLaVA** | Fast | High | 9 types + semantics | High recall |
+| Method | Speed | Semantic Awareness | Visual Input | Relationship Types | Accuracy |
+|--------|-------|-------------------|--------------|-------------------|----------|
+| **Geometric** | Fast | None | No | 9 types | High precision |
+| **LLaVA Text** | Fast | High | No | 9 types + semantics | High recall |
+| **LLaVA Visual** | Slow | High | Yes | 9 types + semantics | Highest accuracy |
 
-**LLaVA Query Example**:
+**LLaVA Text Query Example**:
 ```
 Query: Object 1 is a "wooden dresser or cabinet" at position (1.12, 1.07, -0.13)
        Object 2 is a "wooden shoe or heel" at position (1.12, 1.07, -0.13)
        → Relationship: "near" (confidence: 0.70)
+```
+
+**LLaVA Visual Query Example**:
+```
+Input: RGB frame with RED box around Object 1, BLUE box around Object 2
+Prompt: "You are an agent specializing in identifying physical and spatial
+         relationships between objects in annotated images. In this image,
+         two objects are marked with colored annotations:
+         - Object 1 (RED): wooden dresser or cabinet
+         - Object 2 (BLUE): wooden shoe or heel
+
+         What is the spatial relationship between Object 1 and Object 2?
+         Respond with ONLY the relationship type (e.g., 'on', 'in', 'near', 'none')."
+
+Response: "on"
+Confidence: 0.85
 ```
 
 #### 2. **Relationship Types**
@@ -2512,17 +2546,29 @@ The system detects the following spatial relationships:
 - System prompt describes task, returns list of tuples
 - Requires API calls and image annotation
 
-**MemSpace (LLaVA) Approach**:
-- Hybrid geometric + semantic reasoning
-- Text-based queries with 3D position information
-- No image annotation required (uses bbox coordinates)
-- Local inference (no API calls)
-- Designed for text-only VLM reasoning
+**MemSpace Approach (3 modes)**:
 
-**Key Insight**: LLaVA is a vision-language model requiring images, so we use a hybrid approach:
-1. Geometric analysis provides spatial constraints
-2. Semantic understanding provides plausibility checks
-3. Mimics how an LLM would reason about spatial relationships
+1. **LLaVA Text-Based** (fast):
+   - Hybrid geometric + semantic reasoning
+   - Text-based queries with 3D position information
+   - No image annotation required (uses bbox coordinates)
+   - Local inference (no API calls)
+   - Designed for text-only VLM reasoning
+
+2. **LLaVA Vision-Based** (accurate):
+   - Vision-based spatial relationship detection using LLaVA-1.5-7b
+   - Annotates RGB frames with colored bounding boxes (RED for Object 1, BLUE for Object 2)
+   - Queries LLaVA with annotated images for visual spatial reasoning
+   - Similar to ConceptGraphs' GPT-4V approach but using local LLaVA model
+   - Automatically finds frames where both objects are visible
+   - Local inference (no API calls)
+   - See `outputs/llava_visual_examples/` for example annotated images
+
+**Key Differences**:
+- ConceptGraphs uses GPT-4V API, MemSpace uses local LLaVA-1.5-7b
+- Both use annotated RGB frames for visual reasoning (vision-based mode)
+- MemSpace additionally supports text-based reasoning for faster inference
+- MemSpace automatically handles frame selection for object visibility
 
 #### 4. **Scene Graph Structure**
 

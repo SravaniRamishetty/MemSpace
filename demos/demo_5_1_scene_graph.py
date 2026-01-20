@@ -96,21 +96,12 @@ def main(cfg: DictConfig):
 
     if spatial_method == 'llava_visual':
         # Use vision-based LLaVA spatial reasoning with annotated images
-        from memspace.dataset.replica_dataset import ReplicaDataset
+        from memspace.dataset import get_dataset
         from memspace.models.llava_wrapper import LLaVAWrapper
         import os
 
         # Initialize dataset
-        dataset_cfg = cfg.dataset
-        dataset = ReplicaDataset(
-            dataset_path=dataset_cfg.dataset_path,
-            stride=dataset_cfg.stride,
-            start=dataset_cfg.get('start_frame', 0),
-            end=dataset_cfg.max_frames * dataset_cfg.stride if dataset_cfg.max_frames else -1,
-            height=480,
-            width=640,
-            device=cfg.get('device', 'cuda'),
-        )
+        dataset = get_dataset(cfg.dataset, device=cfg.get('device', 'cuda'))
 
         # Initialize LLaVA wrapper
         llava_path = os.getenv('LLAVA_PYTHON_PATH')
