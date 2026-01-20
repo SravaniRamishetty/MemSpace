@@ -43,6 +43,5 @@ min_points: 100
 
 # Dataset configuration (needed for llava_visual mode)
 defaults:
-  - dataset: replica
   - model: llava
   - _self_

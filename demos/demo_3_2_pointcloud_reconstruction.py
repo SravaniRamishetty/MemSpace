@@ -25,7 +25,7 @@ import torch
 import rerun as rr
 import open3d as o3d
 
-from memspace.dataset.replica_dataset import ReplicaDataset
+from memspace.dataset import get_dataset
 from memspace.reconstruction.pointcloud_fusion import PointCloudAccumulator
 from memspace.utils import rerun_utils
 
@@ -93,20 +93,10 @@ def main(cfg: DictConfig):
     print()
 
     # Load dataset
-    dataset_cfg = cfg.dataset
-    dataset_path = dataset_cfg.dataset_path
-    print(f"📂 Loading Replica dataset from: {dataset_path}")
+    print(f"📂 Loading  dataset from: {cfg.dataset.dataset_path}")
 
     try:
-        dataset = ReplicaDataset(
-            dataset_path=dataset_path,
-            stride=dataset_cfg.stride,
-            start=dataset_cfg.get('start_frame', 0),
-            end=dataset_cfg.max_frames * dataset_cfg.stride if dataset_cfg.max_frames else -1,
-            height=480,
-            width=640,
-            device=cfg.device,
-        )
+        dataset = get_dataset(cfg.dataset, device=cfg.device)
     except Exception as e:
         print(f"❌ Error loading dataset: {e}")
         return
@@ -132,7 +122,7 @@ def main(cfg: DictConfig):
 
     # Accumulate point clouds
     print("🎬 Accumulating point clouds from RGB-D frames...")
-    print(f"   Processing {len(dataset)} frames (stride {dataset_cfg.stride})")
+    print(f"   Processing {len(dataset)} frames (stride {cfg.dataset.stride})")
     print()
 
     start_time = time.time()
@@ -237,7 +227,7 @@ Successfully reconstructed 3D scene using point cloud accumulation.
 
 ## Reconstruction Summary:
 - **Frames integrated:** {accumulator.num_frames_integrated}
-- **Frame stride:** {dataset_cfg.stride}
+- **Frame stride:** {cfg.dataset.stride}
 - **Voxel size:** {pc_cfg.voxel_size}m ({pc_cfg.voxel_size*100:.1f}cm)
 - **Processing time:** {total_time:.2f}s ({total_time/len(dataset):.3f}s per frame)
 
@@ -281,7 +271,7 @@ Successfully reconstructed 3D scene using point cloud accumulation.
 Phase 3.3: Per-object 3D reconstruction using tracked masks
 
 ---
-*Dataset: {dataset_path}*
+*Dataset: {cfg.dataset.dataset_path}*
 *Frames: {len(dataset)}*
     """
 

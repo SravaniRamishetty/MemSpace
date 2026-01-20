@@ -1,6 +1,5 @@
 defaults:
   - base
-  - dataset: replica
   - _self_
 
 # Demo 4.1: Object Labeling with VLM (Vision Language Model)

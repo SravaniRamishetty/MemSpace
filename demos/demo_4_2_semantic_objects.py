@@ -27,7 +27,7 @@ import rerun as rr
 import open3d as o3d
 from typing import List
 
-from memspace.dataset.replica_dataset import ReplicaDataset
+from memspace.dataset import get_dataset
 from memspace.models.sam_wrapper import SAMWrapper
 from memspace.models.clip_wrapper import CLIPWrapper
 from memspace.models.florence_wrapper import FlorenceWrapper
@@ -257,20 +257,10 @@ def main(cfg: DictConfig):
     print()
 
     # Load dataset
-    dataset_cfg = cfg.dataset
-    dataset_path = dataset_cfg.dataset_path
-    print(f"📂 Loading Replica dataset from: {dataset_path}")
+    print(f"📂 Loading  dataset from: {cfg.dataset.dataset_path}")
 
     try:
-        dataset = ReplicaDataset(
-            dataset_path=dataset_path,
-            stride=dataset_cfg.stride,
-            start=dataset_cfg.get('start_frame', 0),
-            end=dataset_cfg.max_frames * dataset_cfg.stride if dataset_cfg.max_frames else -1,
-            height=480,
-            width=640,
-            device=cfg.device,
-        )
+        dataset = get_dataset(cfg.dataset, device=cfg.device)
     except Exception as e:
         print(f"❌ Error loading dataset: {e}")
         return

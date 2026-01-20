@@ -1,5 +1,6 @@
 defaults:
   - base_paths
+  - dataset: replica
   - _self_
 
 # Logging

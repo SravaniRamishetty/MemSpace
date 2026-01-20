@@ -270,6 +270,108 @@ manager.export_to_json(
 
 ---
 
+## 🚀 Quick Start
+
+### Running Demos
+
+All demos support Hydra config overrides for flexibility:
+
+#### Phase 1: Data Pipeline
+```bash
+# Demo 1.2: RGB-D Data Pipeline & Visualization
+python demos/demo_1_2_data_pipeline.py dataset.max_frames=10
+```
+
+#### Phase 2: Perception & Tracking
+```bash
+# Demo 2.1: SAM Segmentation
+python demos/demo_2_1_sam_segmentation.py dataset.max_frames=10
+
+# Demo 2.2: CLIP Embeddings
+python demos/demo_2_2_clip_embeddings.py dataset.max_frames=10
+
+# Demo 2.3: Object Tracking
+python demos/demo_2_3_object_tracking.py dataset.max_frames=20
+```
+
+#### Phase 3: 3D Reconstruction
+```bash
+# Demo 3.1: TSDF Reconstruction
+python demos/demo_3_1_tsdf_reconstruction.py dataset.max_frames=50
+
+# Demo 3.2: Point Cloud Reconstruction
+python demos/demo_3_2_pointcloud_reconstruction.py dataset.max_frames=50
+
+# Demo 3.3: Object-level 3D Reconstruction
+python demos/demo_3_3_object_reconstruction.py dataset.max_frames=30
+```
+
+#### Phase 4: Semantic Understanding
+```bash
+# Demo 4.1: Object Labeling with Florence-2
+python demos/demo_4_1_object_labeling.py dataset.max_frames=20
+
+# Demo 4.1: Object Labeling with LLaVA (requires setup)
+export LLAVA_PYTHON_PATH=/path/to/LLaVA
+export LLAVA_CKPT_PATH=/path/to/llava-v1.5-7b
+python demos/demo_4_1_object_labeling.py vlm_type=llava dataset.max_frames=10
+
+# Demo 4.2: Semantic Objects
+python demos/demo_4_2_semantic_objects.py dataset.max_frames=20
+```
+
+#### Phase 5: Scene Graph Construction
+```bash
+# Demo 5.1: Scene Graph (Geometric reasoning - default)
+python demos/demo_5_1_scene_graph.py
+
+# Demo 5.1: Scene Graph (LLaVA text-based spatial reasoning)
+export LLAVA_PYTHON_PATH=/path/to/LLaVA
+export LLAVA_CKPT_PATH=/path/to/llava-v1.5-7b
+python demos/demo_5_1_scene_graph.py spatial_reasoning_method=llava
+
+# Demo 5.1: Scene Graph (LLaVA vision-based spatial reasoning)
+export LLAVA_PYTHON_PATH=/path/to/LLaVA
+export LLAVA_CKPT_PATH=/path/to/llava-v1.5-7b
+python demos/demo_5_1_scene_graph.py spatial_reasoning_method=llava_visual
+```
+
+### Common Configuration Options
+
+All demos support these Hydra config overrides:
+
+```bash
+# Dataset options
+dataset.max_frames=N          # Limit number of frames
+dataset.stride=N              # Process every Nth frame
+dataset.dataset_path=/path    # Override dataset path
+
+# Visualization options
+rerun_spawn=false             # Don't spawn Rerun viewer
+use_rerun=false               # Disable Rerun completely
+
+# Device options
+device=cuda                   # Use GPU (default)
+device=cpu                    # Use CPU
+```
+
+### Example Usage
+
+```bash
+# Quick test with 5 frames, no viewer
+python demos/demo_2_1_sam_segmentation.py dataset.max_frames=5 rerun_spawn=false
+
+# Full scene reconstruction with custom stride
+python demos/demo_3_1_tsdf_reconstruction.py dataset.stride=5 dataset.max_frames=100
+
+# Scene graph with different dataset
+python demos/demo_5_1_scene_graph.py dataset.dataset_path=/path/to/other/scene
+```
+
+For detailed demo documentation, see [`demos/README.md`](demos/README.md).
+
+---
+
 ## 🛠️ Technical Stack
 
 - **Segmentation**: SAM (Segment Anything Model)

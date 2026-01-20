@@ -1,6 +1,5 @@
 defaults:
   - base
-  - dataset: replica
   - _self_
 
 # Demo 3.2: Point Cloud Accumulation (ConceptGraphs-style)

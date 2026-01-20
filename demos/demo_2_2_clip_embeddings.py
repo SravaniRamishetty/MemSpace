@@ -24,7 +24,7 @@ import cv2
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 
-from memspace.dataset.replica_dataset import ReplicaDataset
+from memspace.dataset import get_dataset
 from memspace.models.sam_wrapper import SAMWrapper
 from memspace.models.clip_wrapper import CLIPWrapper
 from memspace.utils import rerun_utils
@@ -119,20 +119,10 @@ def main(cfg: DictConfig):
     print()
 
     # Load dataset
-    dataset_cfg = cfg.dataset
-    dataset_path = dataset_cfg.dataset_path
-    print(f"📂 Loading Replica dataset from: {dataset_path}")
+    print(f"📂 Loading  dataset from: {cfg.dataset.dataset_path}")
 
     try:
-        dataset = ReplicaDataset(
-            dataset_path=dataset_path,
-            stride=dataset_cfg.stride,
-            start=dataset_cfg.get('start_frame', 0),
-            end=dataset_cfg.max_frames * dataset_cfg.stride if dataset_cfg.max_frames else -1,
-            height=480,
-            width=640,
-            device=cfg.device,
-        )
+        dataset = get_dataset(cfg.dataset, device=cfg.device)
     except Exception as e:
         print(f"❌ Error loading dataset: {e}")
         return
@@ -370,7 +360,7 @@ Run demo_2_3 to track objects across multiple frames!
 
 ---
 *Frames processed: {len(dataset)}*
-*Dataset: {dataset_path}*
+*Dataset: {cfg.dataset.dataset_path}*
     """
 
     rr.log("world/summary", rr.TextDocument(completion_text, media_type=rr.MediaType.MARKDOWN))

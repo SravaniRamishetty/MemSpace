@@ -19,7 +19,7 @@ from omegaconf import DictConfig
 import torch
 import rerun as rr
 
-from memspace.dataset.replica_dataset import ReplicaDataset
+from memspace.dataset import get_dataset
 from memspace.utils import rerun_utils
 
 
@@ -54,15 +54,7 @@ def main(cfg: DictConfig):
 
     # Create dataset
     try:
-        dataset = ReplicaDataset(
-            dataset_path=dataset_path,
-            stride=stride,
-            start=0,
-            end=max_frames * stride if max_frames else -1,
-            height=480,  # Resize to smaller resolution for faster processing
-            width=640,
-            device=cfg.device,
-        )
+        dataset = get_dataset(cfg.dataset, device=cfg.device)
     except Exception as e:
         print(f"❌ Error loading dataset: {e}")
         print(f"   Make sure Replica dataset exists at: {dataset_path}")

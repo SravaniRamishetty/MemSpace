@@ -1,6 +1,5 @@
 defaults:
   - base
-  - dataset: replica
   - _self_
 
 # Demo 3.3: Per-Object 3D Reconstruction
